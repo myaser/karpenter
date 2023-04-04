@@ -20,8 +20,10 @@ import (
 	"fmt"
 	"math"
 	"net"
+	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
@@ -132,7 +134,19 @@ func launchTemplateName(options *amifamily.LaunchTemplate) string {
 	if err != nil {
 		panic(fmt.Sprintf("hashing launch template, %s", err))
 	}
-	return fmt.Sprintf(launchTemplateNameFormat, options.ClusterName, fmt.Sprint(hash))
+	clusterName := options.ClusterName[:128-len(string(hash))-len(fmt.Sprintf(launchTemplateNameFormat, "", ""))]
+	clusterName = strings.Map(func(r rune) rune {
+		switch {
+		case unicode.IsLetter(r), unicode.IsNumber(r):
+			return r
+		}
+		switch r {
+		case '-', '_', '.', '/', '(', ')':
+			return r
+		}
+		return '_'
+	}, clusterName)
+	return fmt.Sprintf(launchTemplateNameFormat, clusterName, fmt.Sprint(hash))
 }
 
 func (p *Provider) createAMIOptions(ctx context.Context, machine *v1alpha5.Machine, nodeTemplate *v1alpha1.AWSNodeTemplate, labels map[string]string) (*amifamily.Options, error) {
