@@ -276,16 +276,8 @@ func (p *Provider) generateNetworkInterfaces(options *amifamily.LaunchTemplate) 
 	var networkInterfacesRequest []*ec2.LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
 	for _, networkInterface := range options.NetworkInterfaces {
 		networkInterfacesRequest = append(networkInterfacesRequest, &ec2.LaunchTemplateInstanceNetworkInterfaceSpecificationRequest{
-			AssociateCarrierIpAddress: networkInterface.AssociateCarrierIPAddress,
-			AssociatePublicIpAddress:  networkInterface.AssociatePublicIPAddress,
-			DeleteOnTermination:       networkInterface.DeleteOnTermination,
-			Description:               networkInterface.Description,
-			DeviceIndex:               networkInterface.DeviceIndex,
-			InterfaceType:             networkInterface.InterfaceType,
-			NetworkCardIndex:          networkInterface.NetworkCardIndex,
-			Ipv4PrefixCount:           networkInterface.IPv4PrefixCount,
-			Ipv6PrefixCount:           networkInterface.IPv6PrefixCount,
-			Groups:                    lo.Map(options.SecurityGroups, func(s v1alpha1.SecurityGroup, _ int) *string { return aws.String(s.ID) }),
+			AssociatePublicIpAddress: networkInterface.AssociatePublicIPAddress,
+			Groups:                   lo.Map(options.SecurityGroups, func(s v1alpha1.SecurityGroup, _ int) *string { return aws.String(s.ID) }),
 		})
 	}
 	return networkInterfacesRequest

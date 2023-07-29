@@ -200,43 +200,13 @@ func DeserializeProvider(raw []byte) (*AWS, error) {
 }
 
 type NetworkInterface struct {
-	// Associates a Carrier IP address with eth0 for a new network interface.
-	//
-	// Use this option when you launch an instance in a Wavelength Zone and want
-	// to associate a Carrier IP address with the network interface. For more information
-	// about Carrier IP addresses, see Carrier IP addresses (https://docs.aws.amazon.com/wavelength/latest/developerguide/how-wavelengths-work.html#provider-owned-ip)
-	// in the Wavelength Developer Guide.
-	AssociateCarrierIPAddress *bool `json:"associateCarrierIPAddress,omitempty"`
 
 	// Associates a public IPv4 address with eth0 for a new network interface.
 	AssociatePublicIPAddress *bool `json:"associatePublicIPAddress,omitempty"`
-
-	// Indicates whether the network interface is deleted when the instance is terminated.
-	DeleteOnTermination *bool `json:"deleteOnTermination,omitempty"`
 
 	// A description for the network interface.
 	Description *string `json:"description,omitempty"`
 
 	// The device index for the network interface attachment.
 	DeviceIndex *int64 `json:"deviceIndex,omitempty"`
-
-	// The type of network interface. To create an Elastic Fabric Adapter (EFA),
-	// specify efa. For more information, see Elastic Fabric Adapter (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html)
-	// in the Amazon Elastic Compute Cloud User Guide.
-	//
-	// If you are not creating an EFA, specify interface or omit this parameter.
-	//
-	// Valid values: interface | efa
-	InterfaceType *string `json:"interfaceType,omitempty"`
-
-	// The index of the network card. Some instance types support multiple network
-	// cards. The primary network interface must be assigned to network card index
-	// 0. The default is network card index 0.
-	NetworkCardIndex *int64 `json:"networkCardIndex,omitempty"`
-
-	// The number of IPv4 prefixes to be automatically assigned to the network interface.
-	IPv4PrefixCount *int64 `json:"ipv4PrefixCount,omitempty"`
-
-	// The number of IPv6 prefixes to be automatically assigned to the network interface.
-	IPv6PrefixCount *int64 `json:"ipv6PrefixCount,omitempty"`
 }

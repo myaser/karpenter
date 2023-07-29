@@ -1659,7 +1659,6 @@ var _ = Describe("LaunchTemplates", func() {
 					{
 						AssociatePublicIPAddress: aws.Bool(true),
 						DeviceIndex:              aws.Int64(0),
-						NetworkCardIndex:         aws.Int64(0),
 					},
 				}
 				ExpectApplied(ctx, env.Client, provisioner, nodeTemplate)
@@ -1686,12 +1685,10 @@ var _ = Describe("LaunchTemplates", func() {
 				nodeTemplate.Spec.SubnetSelector = map[string]string{"Name": "test-subnet-2"}
 				nodeTemplate.Spec.NetworkInterfaces = []*v1alpha1.NetworkInterface{
 					{
-						DeviceIndex:      aws.Int64(0),
-						NetworkCardIndex: aws.Int64(0),
+						DeviceIndex: aws.Int64(0),
 					},
 					{
-						DeviceIndex:      aws.Int64(1),
-						NetworkCardIndex: aws.Int64(1),
+						DeviceIndex: aws.Int64(1),
 					},
 				}
 				ExpectApplied(ctx, env.Client, provisioner, nodeTemplate)
@@ -1708,15 +1705,9 @@ var _ = Describe("LaunchTemplates", func() {
 				nodeTemplate.Spec.SubnetSelector = map[string]string{"Name": "test-subnet-2"}
 				nodeTemplate.Spec.NetworkInterfaces = []*v1alpha1.NetworkInterface{
 					{
-						AssociateCarrierIPAddress: aws.Bool(true),
-						AssociatePublicIPAddress:  aws.Bool(true),
-						DeleteOnTermination:       aws.Bool(true),
-						Description:               aws.String("example"),
-						InterfaceType:             aws.String("example"),
-						DeviceIndex:               aws.Int64(1),
-						NetworkCardIndex:          aws.Int64(1),
-						IPv4PrefixCount:           aws.Int64(1),
-						IPv6PrefixCount:           aws.Int64(1),
+						AssociatePublicIPAddress: aws.Bool(true),
+						Description:              aws.String("example"),
+						DeviceIndex:              aws.Int64(1),
 					},
 				}
 				ExpectApplied(ctx, env.Client, provisioner, nodeTemplate)

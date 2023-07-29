@@ -97,9 +97,6 @@ var _ = Describe("NetworkInterfaces", func() {
 							AssociatePublicIPAddress: aws.Bool(true),
 							Description:              aws.String(desc),
 							DeviceIndex:              aws.Int64(0),
-							NetworkCardIndex:         aws.Int64(0),
-							IPv4PrefixCount:          aws.Int64(2),
-							IPv6PrefixCount:          aws.Int64(2),
 						},
 					},
 				},
@@ -139,16 +136,12 @@ var _ = Describe("NetworkInterfaces", func() {
 				LaunchTemplate: v1alpha1.LaunchTemplate{
 					NetworkInterfaces: []*v1alpha1.NetworkInterface{
 						{
-							Description:      aws.String(desc1),
-							DeviceIndex:      aws.Int64(0),
-							NetworkCardIndex: aws.Int64(0),
-							InterfaceType:    aws.String("interface"),
+							Description: aws.String(desc1),
+							DeviceIndex: aws.Int64(0),
 						},
 						{
-							Description:      aws.String(desc2),
-							DeviceIndex:      aws.Int64(1),
-							NetworkCardIndex: aws.Int64(1),
-							InterfaceType:    aws.String("efa"),
+							Description: aws.String(desc2),
+							DeviceIndex: aws.Int64(1),
 						},
 					},
 				},
